@@ -1,6 +1,7 @@
 _______________________________________________________________________________
 Spark POC on Applying different Transformations
 _______________________________________________________________________________
+
 ./bin/spark-shell --packages org.apache.spark:spark-avro_2.11:2.4.3
 
 import org.apache.spark.sql.functions.col
@@ -13,7 +14,10 @@ val tabledata = spark.read.format("avro").load(s"$tab")
 
 val a = tabledata.orderBy(desc("SRI_Number"))
 val b = a.filter("SRI_Number == '1-2124718050'").select($"SRI_Number",$"Last_Activity_Date")
-b.groupBy($"SRI_Number").agg(max("Last_Activity_Date")).show
+
+val df = groupBy($"SRI_Number").agg(max("Last_Activity_Date"))
+
+df.show()
 
 //Working with different date/time colums
 c.withColumn("t2",col("t1").cast(DateType))
