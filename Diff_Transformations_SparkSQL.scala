@@ -28,6 +28,8 @@ val tabledata=spark.read.format("avro").load(s"$tab")
 
 tabledata.createOrReplaceTempView("Service_Request_Escalation_Report")
 mongodata.createOrReplaceTempView("SRTrendAnalysis")
+
+//Single line query
 val q="Select a.SR_Num,Service_Ticket,Summary,SR_Details,Account,Child_Account,Region,Originating_Group,
 Destination_Group,date_format(to_timestamp(replace(Closed,'\\\\',''),'yyyy-MM-dd HH:mm:ss'),'yyyy-MM-dd HH:mm:ss') AS Closed
 ,Days_Open,Product,Release,Area,SubArea,Priority,Severity,Severity_Impacting,SR_Complexity,Customer_Priority,Resource_1,Manager_Work_Assignment,
@@ -58,6 +60,6 @@ b.groupBy($"SR_Num").agg(max("Last_Activity_Date")).show
 
 c.withColumn("t2",col("t1").cast(DateType))
 val d= b.withColumn("Last_Activity_Date",to_date($"Last_Activity_Date", "MM/dd/yyyy"))
-d.groupBy($"SR_Num").agg(max("Last_Activity_Date")).show
+d.groupBy($"SR_Num").agg(max("Last_Activity_Date")).show()
 
-b.withColumn("Last_Activity_Date", to_date(unix_timestamp($"date", dd/MM/yyyy").cast("timestamp")))
+b.withColumn("Last_Activity_Date", to_date(unix_timestamp($"date", dd/MM/yyyy").cast("timestamp"))).show()
