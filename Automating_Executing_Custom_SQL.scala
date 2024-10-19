@@ -1,4 +1,4 @@
-NOTE: Try This Logic in Spark-Shall
+NOTE: Working in Spark-Shall
 ------------------------------------
 ./bin/spark-shell --packages org.apache.spark:spark-avro_2.11:2.4.3
 
